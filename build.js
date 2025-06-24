@@ -132,7 +132,7 @@ try {
 	}
 
 	// Generate usage instructions
-	const usageFile = `${OUTPUT_NAME}-usage.md`;
+	const usageFile = `build/${OUTPUT_NAME}-usage.md`;
 	const usage = generateUsageInstructions(config, OUTPUT_NAME, buildInfo);
 	fs.writeFileSync(usageFile, usage);
 	console.log(`📋 Generated ${usageFile}`);
