@@ -2,7 +2,7 @@
 
 > Hi, I'm Clark Weckmann, a DevOps Engineer from Southern Illinois. I specialize in web development and automation, with a focus on creating interesting projects and sharing my knowledge.
 
-**Version:** 1.0.0 | **Built:** 6/24/2025, 5:11:58 AM
+**Version:** 1.0.0 | **Built:** 6/24/2025, 5:16:56 AM
 
 ## 🚀 Quick Start
 
@@ -10,7 +10,7 @@ Choose your preferred method to add the attribution button to your website:
 
 ### CDN (Recommended)
 ```html
-<script src="https://yourusername.github.io/yourrepo/attribution.min.js"></script>
+<script src="https://clarkweckmann.github.io/ClarkToday-Attribution-JS/attribution.min.js"></script>
 ```
 
 ### Direct Download
@@ -88,7 +88,7 @@ if (location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
 | Property | Value |
 |----------|-------|
 | **Version** | 1.0.0 |
-| **Built** | 2025-06-24T05:11:58.691Z |
+| **Built** | 2025-06-24T05:16:56.717Z |
 | **Config** | config.json |
 | **Original Size** | 22,632 bytes |
 | **Minified Size** | 19,023 bytes |

@@ -150,15 +150,24 @@ try {
 }
 
 function generateIndexMarkdown(config, outputName, buildInfo) {
-	const originalSize = fs.existsSync(`build/${outputName}.js`) ? fs.statSync(`build/${outputName}.js`).size : 0;
-	const minifiedSize = fs.existsSync(`build/${outputName}.min.js`) ? fs.statSync(`build/${outputName}.min.js`).size : 0;
-	const compression = originalSize > 0 ? (((originalSize - minifiedSize) / originalSize) * 100).toFixed(1) : '0';
+	const originalSize = fs.existsSync(`build/${outputName}.js`)
+		? fs.statSync(`build/${outputName}.js`).size
+		: 0;
+	const minifiedSize = fs.existsSync(`build/${outputName}.min.js`)
+		? fs.statSync(`build/${outputName}.min.js`).size
+		: 0;
+	const compression =
+		originalSize > 0
+			? (((originalSize - minifiedSize) / originalSize) * 100).toFixed(1)
+			: '0';
 
 	return `# ${config.brand.name} Attribution Button
 
 > ${config.brand.description}
 
-**Version:** ${buildInfo.version} | **Built:** ${new Date(buildInfo.timestamp).toLocaleString()}
+**Version:** ${buildInfo.version} | **Built:** ${new Date(
+		buildInfo.timestamp
+	).toLocaleString()}
 
 ## 🚀 Quick Start
 
@@ -166,12 +175,16 @@ Choose your preferred method to add the attribution button to your website:
 
 ### CDN (Recommended)
 \`\`\`html
-<script src="https://yourusername.github.io/yourrepo/${outputName}.min.js"></script>
+<script src="${process.env.GITHUB_PAGES_URL || 'https://yourusername.github.io/yourrepo'}/${outputName}.min.js"></script>
 \`\`\`
 
 ### Direct Download
-- [📦 ${outputName}.min.js](${outputName}.min.js) (${Math.round(minifiedSize/1024)}KB, production ready)
-- [📄 ${outputName}.js](${outputName}.js) (${Math.round(originalSize/1024)}KB, development version)
+- [📦 ${outputName}.min.js](${outputName}.min.js) (${Math.round(
+		minifiedSize / 1024
+	)}KB, production ready)
+- [📄 ${outputName}.js](${outputName}.js) (${Math.round(
+		originalSize / 1024
+	)}KB, development version)
 
 ## 📋 Project Overview
 
@@ -179,18 +192,24 @@ This attribution button provides a clean, customizable way to display brand attr
 
 - **🎨 Theme Support**: Automatic light/dark theme detection
 - **📱 Responsive Design**: Works on all device sizes
-- **⚡ Lightweight**: Only ${Math.round(minifiedSize/1024)}KB minified (${compression}% compression)
+- **⚡ Lightweight**: Only ${Math.round(
+		minifiedSize / 1024
+	)}KB minified (${compression}% compression)
 - **🔧 Configurable**: Easy JSON-based configuration
 - **♿ Accessible**: ARIA compliant and keyboard navigable
 
 ## 🎯 Features
 
-${config.features?.themeToggle ? '✅' : '❌'} **Theme Toggle** - Automatic light/dark mode switching
-${config.features?.hideButton ? '✅' : '❌'} **Hide Button** - Allow users to dismiss the attribution
+${
+	config.features?.themeToggle ? '✅' : '❌'
+} **Theme Toggle** - Automatic light/dark mode switching
+${
+	config.features?.hideButton ? '✅' : '❌'
+} **Hide Button** - Allow users to dismiss the attribution
 🔗 **${config.links.length} Links** - Configured navigation links
 
 ### Configured Links
-${config.links.map(link => `- [${link.text}](${link.url})`).join('\n')}
+${config.links.map((link) => `- [${link.text}](${link.url})`).join('\n')}
 
 ## 💻 Installation Methods
 
@@ -252,8 +271,12 @@ if (location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
 
 | File | Description | Size | Use Case |
 |------|-------------|------|----------|
-| \`${outputName}.min.js\` | Production minified version | ${Math.round(minifiedSize/1024)}KB | Live websites |
-| \`${outputName}.js\` | Development version with comments | ${Math.round(originalSize/1024)}KB | Development/debugging |
+| \`${outputName}.min.js\` | Production minified version | ${Math.round(
+		minifiedSize / 1024
+	)}KB | Live websites |
+| \`${outputName}.js\` | Development version with comments | ${Math.round(
+		originalSize / 1024
+	)}KB | Development/debugging |
 | \`index.md\` | This documentation | - | Reference |
 
 ## 🎨 Brand Configuration
@@ -285,11 +308,19 @@ To create your own version:
 
 - **Issues**: Report bugs or request features
 - **Documentation**: View the full usage guide
-- **Website**: ${config.links.find(link => link.text.toLowerCase().includes('website') || link.text.toLowerCase().includes('home'))?.url || config.links[0]?.url}
+- **Website**: ${
+		config.links.find(
+			(link) =>
+				link.text.toLowerCase().includes('website') ||
+				link.text.toLowerCase().includes('home')
+		)?.url || config.links[0]?.url
+	}
 
 ---
 
-*Generated automatically by the Attribution Button Builder v${buildInfo.version}*
+*Generated automatically by the Attribution Button Builder v${
+		buildInfo.version
+	}*
 `;
 }
 
