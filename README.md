@@ -16,8 +16,8 @@ A configurable attribution button system that generates minified JavaScript file
 
 1. **Clone this repository**
    ```bash
-   git clone https://github.com/your-username/attribution-button.git
-   cd attribution-button
+   git clone https://github.com/clarkhacks/ClarkToday-Attribution-JS
+   cd -
    ```
 
 2. **Install dependencies**
