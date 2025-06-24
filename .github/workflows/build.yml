@@ -21,20 +21,11 @@ jobs:
         node-version: '18'
         cache: 'npm'
 
+    - name: Install dependencies
+      run: npm install
+
     - name: Install build tools
-      run: |
-        npm install -g terser clean-css-cli jq
+      run: npm install -g terser
 
-    - name: Build attribution.js
-      run: |
-        CONFIG_CONTENT=$(jq -c . config.json)
-
-        # Replace placeholder in template
-        sed "s/{{CONFIG_PLACEHOLDER}}/$CONFIG_CONTENT/g" attribution-template.js > attribution.js
-
-    - name: Minify attribution.js
-      run: |
-        terser attribution.js \
-          --compress drop_console=true,drop_debugger=true,pure_funcs=['console.log','console.info','console.warn'] \
-          --mangle \
-          --output attribution.min.js
+    - name: Build attribution button
+      run: node build.js
