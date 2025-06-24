@@ -76,7 +76,6 @@ try {
 		config: CONFIG_FILE,
 		version: require('./package.json')?.version || '1.0.0',
 	};
-ficx
 	// Ensure build directory exists
 	const buildDir = 'build';
 	if (!fs.existsSync(buildDir)) {
