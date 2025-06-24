@@ -132,15 +132,165 @@ try {
 	}
 
 	// Generate usage instructions
-	const usageFile = `build/${OUTPUT_NAME}-usage.md`;
+	const usageFile = `${OUTPUT_NAME}-usage.md`;
 	const usage = generateUsageInstructions(config, OUTPUT_NAME, buildInfo);
 	fs.writeFileSync(usageFile, usage);
 	console.log(`📋 Generated ${usageFile}`);
+
+	// Generate index.md for build directory
+	const indexFile = `build/index.md`;
+	const indexContent = generateIndexMarkdown(config, OUTPUT_NAME, buildInfo);
+	fs.writeFileSync(indexFile, indexContent);
+	console.log(`📋 Generated ${indexFile}`);
 
 	console.log('✨ Build complete!');
 } catch (error) {
 	console.error('❌ Build failed:', error.message);
 	process.exit(1);
+}
+
+function generateIndexMarkdown(config, outputName, buildInfo) {
+	const originalSize = fs.existsSync(`build/${outputName}.js`) ? fs.statSync(`build/${outputName}.js`).size : 0;
+	const minifiedSize = fs.existsSync(`build/${outputName}.min.js`) ? fs.statSync(`build/${outputName}.min.js`).size : 0;
+	const compression = originalSize > 0 ? (((originalSize - minifiedSize) / originalSize) * 100).toFixed(1) : '0';
+
+	return `# ${config.brand.name} Attribution Button
+
+> ${config.brand.description}
+
+**Version:** ${buildInfo.version} | **Built:** ${new Date(buildInfo.timestamp).toLocaleString()}
+
+## 🚀 Quick Start
+
+Choose your preferred method to add the attribution button to your website:
+
+### CDN (Recommended)
+\`\`\`html
+<script src="https://yourusername.github.io/yourrepo/${outputName}.min.js"></script>
+\`\`\`
+
+### Direct Download
+- [📦 ${outputName}.min.js](${outputName}.min.js) (${Math.round(minifiedSize/1024)}KB, production ready)
+- [📄 ${outputName}.js](${outputName}.js) (${Math.round(originalSize/1024)}KB, development version)
+
+## 📋 Project Overview
+
+This attribution button provides a clean, customizable way to display brand attribution and important links on your website. It features:
+
+- **🎨 Theme Support**: Automatic light/dark theme detection
+- **📱 Responsive Design**: Works on all device sizes
+- **⚡ Lightweight**: Only ${Math.round(minifiedSize/1024)}KB minified (${compression}% compression)
+- **🔧 Configurable**: Easy JSON-based configuration
+- **♿ Accessible**: ARIA compliant and keyboard navigable
+
+## 🎯 Features
+
+${config.features?.themeToggle ? '✅' : '❌'} **Theme Toggle** - Automatic light/dark mode switching
+${config.features?.hideButton ? '✅' : '❌'} **Hide Button** - Allow users to dismiss the attribution
+🔗 **${config.links.length} Links** - Configured navigation links
+
+### Configured Links
+${config.links.map(link => `- [${link.text}](${link.url})`).join('\n')}
+
+## 💻 Installation Methods
+
+### Method 1: Script Tag (Simplest)
+\`\`\`html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Website</title>
+</head>
+<body>
+    <!-- Your content -->
+    
+    <!-- Attribution Button -->
+    <script src="${outputName}.min.js"></script>
+</body>
+</html>
+\`\`\`
+
+### Method 2: Async Loading (Performance)
+\`\`\`html
+<script>
+(function() {
+    var script = document.createElement('script');
+    script.src = '${outputName}.min.js';
+    script.async = true;
+    script.onload = function() {
+        console.log('${config.brand.name} attribution loaded');
+    };
+    document.head.appendChild(script);
+})();
+</script>
+\`\`\`
+
+### Method 3: Conditional Loading (Environment-based)
+\`\`\`html
+<script>
+// Only load on production
+if (location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
+    var script = document.createElement('script');
+    script.src = '${outputName}.min.js';
+    document.head.appendChild(script);
+}
+</script>
+\`\`\`
+
+## 🛠️ Build Information
+
+| Property | Value |
+|----------|-------|
+| **Version** | ${buildInfo.version} |
+| **Built** | ${buildInfo.timestamp} |
+| **Config** | ${buildInfo.config} |
+| **Original Size** | ${originalSize.toLocaleString()} bytes |
+| **Minified Size** | ${minifiedSize.toLocaleString()} bytes |
+| **Compression** | ${compression}% |
+
+## 📁 Available Files
+
+| File | Description | Size | Use Case |
+|------|-------------|------|----------|
+| \`${outputName}.min.js\` | Production minified version | ${Math.round(minifiedSize/1024)}KB | Live websites |
+| \`${outputName}.js\` | Development version with comments | ${Math.round(originalSize/1024)}KB | Development/debugging |
+| \`index.md\` | This documentation | - | Reference |
+
+## 🎨 Brand Configuration
+
+\`\`\`json
+{
+  "brand": {
+    "name": "${config.brand.name}",
+    "shortName": "${config.brand.shortName}",
+    "description": "${config.brand.description}"
+  }
+}
+\`\`\`
+
+## 🔧 Customization
+
+To create your own version:
+
+1. **Fork the repository**
+2. **Edit \`config.json\`** with your brand details
+3. **Run the build process:**
+   \`\`\`bash
+   npm install
+   npm run build
+   \`\`\`
+4. **Use the generated files** from the \`build/\` directory
+
+## 📞 Support
+
+- **Issues**: Report bugs or request features
+- **Documentation**: View the full usage guide
+- **Website**: ${config.links.find(link => link.text.toLowerCase().includes('website') || link.text.toLowerCase().includes('home'))?.url || config.links[0]?.url}
+
+---
+
+*Generated automatically by the Attribution Button Builder v${buildInfo.version}*
+`;
 }
 
 function generateUsageInstructions(config, outputName, buildInfo) {

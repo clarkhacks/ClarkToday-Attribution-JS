@@ -38,3 +38,22 @@ jobs:
           build/
           attribution-usage.md
         retention-days: 30
+
+    - name: Copy usage documentation to gh-pages
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      run: |
+        cp attribution-usage.md build/README.md
+
+    - name: Deploy to GitHub Pages
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./build
+        publish_branch: gh-pages
+        enable_jekyll: false
+        allow_empty_commit: false
+        force_orphan: true
+        user_name: 'github-actions[bot]'
+        user_email: 'github-actions[bot]@users.noreply.github.com'
+        commit_message: 'Deploy built files with documentation from ${{ github.sha }}'
