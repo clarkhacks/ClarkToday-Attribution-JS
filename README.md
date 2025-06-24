@@ -15,23 +15,27 @@ A configurable attribution button system that generates minified JavaScript file
 ## Quick Start
 
 1. **Clone this repository**
+
    ```bash
    git clone https://github.com/clarkhacks/ClarkToday-Attribution-JS
-   cd -
+   cd ClarkToday-Attribution-JS
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Customize your configuration**
+
    ```bash
    cp config.json my-config.json
    # Edit my-config.json with your brand details
    ```
 
 4. **Build locally**
+
    ```bash
    npm run build
    # or with custom config:
@@ -49,42 +53,42 @@ Edit `config.json` to customize your attribution button:
 
 ```json
 {
-  "brand": {
-    "name": "Your Brand",
-    "shortName": "Brand",
-    "description": "Your tagline here",
-    "logo": {
-      "light": "https://example.com/logo-dark.png",
-      "dark": "https://example.com/logo-light.png"
-    }
-  },
-  "links": [
-    {
-      "text": "Visit Website",
-      "url": "https://example.com"
-    }
-  ],
-  "features": {
-    "themeToggle": true,
-    "hideButton": true,
-    "hideTimeout": 60000
-  }
+	"brand": {
+		"name": "Your Brand",
+		"shortName": "Brand",
+		"description": "Your tagline here",
+		"logo": {
+			"light": "https://example.com/logo-dark.png",
+			"dark": "https://example.com/logo-light.png"
+		}
+	},
+	"links": [
+		{
+			"text": "Visit Website",
+			"url": "https://example.com"
+		}
+	],
+	"features": {
+		"themeToggle": true,
+		"hideButton": true,
+		"hideTimeout": 60000
+	}
 }
 ```
 
 ### Configuration Options
 
-| Option | Type | Description |
-|--------|------|-------------|
-| `brand.name` | string | Full brand name (shown in modal) |
-| `brand.shortName` | string | Short name (shown on button) |
-| `brand.description` | string | Description text in modal |
-| `brand.logo.light` | string | Logo URL for light theme |
-| `brand.logo.dark` | string | Logo URL for dark theme |
-| `links` | array | Array of link objects with `text` and `url` |
-| `features.themeToggle` | boolean | Enable theme switching |
-| `features.hideButton` | boolean | Enable "hide button" functionality |
-| `features.hideTimeout` | number | Hide duration in milliseconds |
+| Option                 | Type    | Description                                 |
+| ---------------------- | ------- | ------------------------------------------- |
+| `brand.name`           | string  | Full brand name (shown in modal)            |
+| `brand.shortName`      | string  | Short name (shown on button)                |
+| `brand.description`    | string  | Description text in modal                   |
+| `brand.logo.light`     | string  | Logo URL for light theme                    |
+| `brand.logo.dark`      | string  | Logo URL for dark theme                     |
+| `links`                | array   | Array of link objects with `text` and `url` |
+| `features.themeToggle` | boolean | Enable theme switching                      |
+| `features.hideButton`  | boolean | Enable "hide button" functionality          |
+| `features.hideTimeout` | number  | Hide duration in milliseconds               |
 
 ## GitHub Actions Setup
 
@@ -137,22 +141,24 @@ npm run serve
 ### Testing Your Button
 
 1. Build the button:
+
    ```bash
    npm run build
    ```
 
 2. Create a test HTML file:
+
    ```html
    <!DOCTYPE html>
    <html>
-   <head>
-       <title>Test Attribution Button</title>
-   </head>
-   <body>
-       <h1>Test Page</h1>
-       <p>The attribution button should appear in the bottom-right corner.</p>
-       <script src="attribution.min.js"></script>
-   </body>
+   	<head>
+   		<title>Test Attribution Button</title>
+   	</head>
+   	<body>
+   		<h1>Test Page</h1>
+   		<p>The attribution button should appear in the bottom-right corner.</p>
+   		<script src="attribution.min.js"></script>
+   	</body>
    </html>
    ```
 
@@ -183,15 +189,18 @@ attribution-button/
 ## Production Deployment
 
 ### Option 1: GitHub Releases
+
 - Builds are automatically released on main branch pushes
 - Download from the Releases page
 - Each release includes both minified and full versions
 
 ### Option 2: GitHub Pages
+
 - Builds are deployed to `https://username.github.io/repo/builds/timestamp/`
 - Latest build available at the generated URL
 
 ### Option 3: CDN Upload
+
 - Download the minified file from artifacts
 - Upload to your CDN (CloudFlare, AWS CloudFront, etc.)
 - Reference via CDN URL
@@ -199,57 +208,62 @@ attribution-button/
 ## Integration Examples
 
 ### Basic Integration
+
 ```html
 <script src="attribution.min.js"></script>
 ```
 
 ### Conditional Loading
+
 ```html
 <script>
-// Only load on production
-if (location.hostname !== 'localhost') {
-  const script = document.createElement('script');
-  script.src = 'https://cdn.example.com/attribution.min.js';
-  document.head.appendChild(script);
-}
+	// Only load on production
+	if (location.hostname !== 'localhost') {
+		const script = document.createElement('script');
+		script.src = 'https://cdn.example.com/attribution.min.js';
+		document.head.appendChild(script);
+	}
 </script>
 ```
 
 ### Async Loading with Callback
+
 ```html
 <script>
-(function() {
-  const script = document.createElement('script');
-  script.src = 'attribution.min.js';
-  script.async = true;
-  script.onload = function() {
-    console.log('Attribution button loaded successfully');
-  };
-  document.head.appendChild(script);
-})();
+	(function () {
+		const script = document.createElement('script');
+		script.src = 'attribution.min.js';
+		script.async = true;
+		script.onload = function () {
+			console.log('Attribution button loaded successfully');
+		};
+		document.head.appendChild(script);
+	})();
 </script>
 ```
 
 ## Customization
 
 ### Custom Styling
+
 The button includes comprehensive CSS that can be overridden:
 
 ```css
 /* Override button position */
 #clark-attribution-wrapper .clark-att-btn {
-  bottom: 10px !important;
-  left: 20px !important;
-  right: auto !important;
+	bottom: 10px !important;
+	left: 20px !important;
+	right: auto !important;
 }
 
 /* Custom colors */
 #clark-attribution-wrapper .clark-att-btn {
-  background-color: #your-color !important;
+	background-color: #your-color !important;
 }
 ```
 
 ### Custom Animation Colors
+
 Modify the `generateAnimationStyles()` function in the template to use your brand colors.
 
 ## Browser Support

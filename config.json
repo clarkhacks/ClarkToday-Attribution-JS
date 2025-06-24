@@ -2,7 +2,7 @@
   "brand": {
     "name": "Clark Today",
     "shortName": "Clark",
-    "description": "Your daily dose of local news and information",
+    "description": "Hi, I'm Clark Weckmann, a DevOps Engineer from Southern Illinois. I specialize in web development and automation, with a focus on creating interesting projects and sharing my knowledge.",
     "logo": {
       "light": "https://cdn.clark.today/logos/logo-black.png",
       "dark": "https://cdn.clark.today/logos/logo-white.png"
@@ -14,12 +14,12 @@
       "url": "https://www.clark.today/"
     },
     {
-      "text": "Subscribe to Newsletter",
-      "url": "https://www.clark.today/newsletter"
+      "text": "Read My Blog",
+      "url": "https://www.clark.today/blog"
     },
     {
-      "text": "Contact Us",
-      "url": "https://www.clark.today/contact"
+      "text": "Contact Me",
+      "url": "https://www.clark.today/card"
     }
   ],
   "features": {
