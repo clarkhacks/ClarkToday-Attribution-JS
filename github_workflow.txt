@@ -1,0 +1,128 @@
+name: Build Attribution Button
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      config_file:
+        description: 'Path to config file (default: config.json)'
+        required: false
+        default: 'config.json'
+      output_name:
+        description: 'Output filename (default: attribution)'
+        required: false
+        default: 'attribution'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: |
+        npm install -g terser
+        npm install -g clean-css-cli
+    
+    - name: Set variables
+      id: vars
+      run: |
+        CONFIG_FILE="${{ github.event.inputs.config_file || 'config.json' }}"
+        OUTPUT_NAME="${{ github.event.inputs.output_name || 'attribution' }}"
+        echo "config_file=$CONFIG_FILE" >> $GITHUB_OUTPUT
+        echo "output_name=$OUTPUT_NAME" >> $GITHUB_OUTPUT
+        echo "timestamp=$(date +'%Y%m%d_%H%M%S')" >> $GITHUB_OUTPUT
+    
+    - name: Validate config file
+      run: |
+        if [ ! -f "${{ steps.vars.outputs.config_file }}" ]; then
+          echo "Config file ${{ steps.vars.outputs.config_file }} not found!"
+          exit 1
+        fi
+        
+        # Validate JSON syntax
+        cat "${{ steps.vars.outputs.config_file }}" | jq empty
+        
+        # Check required fields
+        jq -e '.brand.name and .brand.shortName and .brand.description and .brand.logo.light and .brand.logo.dark and .links' "${{ steps.vars.outputs.config_file }}" > /dev/null
+    
+    - name: Generate attribution.js
+      run: |
+        CONFIG_CONTENT=$(cat "${{ steps.vars.outputs.config_file }}" | jq -c .)
+        
+        # Replace the placeholder in the template
+        sed "s/{{CONFIG_PLACEHOLDER}}/$CONFIG_CONTENT/g" attribution-template.js > temp-attribution.js
+        
+        # Add build info comment
+        echo "/* Generated on $(date) from ${{ steps.vars.outputs.config_file }} */" > "${{ steps.vars.outputs.output_name }}.js"
+        cat temp-attribution.js >> "${{ steps.vars.outputs.output_name }}.js"
+        
+        # Clean up
+        rm temp-attribution.js
+    
+    - name: Minify JavaScript
+      run: |
+        terser "${{ steps.vars.outputs.output_name }}.js" \
+          --compress drop_console=true,drop_debugger=true,pure_funcs=['console.log','console.info','console.warn'] \
+          --mangle \
+          --output "${{ steps.vars.outputs.output_name }}.min.js"
+        
+        # Add size info
+        ORIGINAL_SIZE=$(wc -c < "${{ steps.vars.outputs.output_name }}.js")
+        MINIFIED_SIZE=$(wc -c < "${{ steps.vars.outputs.output_name }}.min.js")
+        COMPRESSION_RATIO=$(echo "scale=1; ($ORIGINAL_SIZE - $MINIFIED_SIZE) * 100 / $ORIGINAL_SIZE" | bc)
+        
+        echo "Original size: ${ORIGINAL_SIZE} bytes"
+        echo "Minified size: ${MINIFIED_SIZE} bytes"
+        echo "Compression: ${COMPRESSION_RATIO}%"
+        
+        # Add build info to minified file
+        echo "/* Generated: $(date), Size: ${MINIFIED_SIZE}b, Compressed: ${COMPRESSION_RATIO}% */" > temp-header.js
+        cat "${{ steps.vars.outputs.output_name }}.min.js" >> temp-header.js
+        mv temp-header.js "${{ steps.vars.outputs.output_name }}.min.js"
+    
+    - name: Generate README
+      run: |
+        cat > BUILD_README.md << 'EOF'
+        # Attribution Button Build
+        
+        Generated on: `$(date)`
+        Config file: `${{ steps.vars.outputs.config_file }}`
+        
+        ## Files Generated
+        - `${{ steps.vars.outputs.output_name }}.js` - Full version with comments
+        - `${{ steps.vars.outputs.output_name }}.min.js` - Minified version
+        
+        ## Usage
+        
+        ### Option 1: Direct Script Tag
+        ```html
+        <script src="${{ steps.vars.outputs.output_name }}.min.js"></script>
+        ```
+        
+        ### Option 2: Async Loading
+        ```html
+        <script>
+        (function() {
+          var script = document.createElement('script');
+          script.src = '${{ steps.vars.outputs.output_name }}.min.js';
+          script.async = true;
+          document.head.appendChild(script);
+        })();
+        </script>
+        ```
+        
+        ### Option 3: CDN (if hosted)
+        ```html
+        <script src="https://your-cdn.com/${{ steps

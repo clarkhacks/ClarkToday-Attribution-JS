@@ -1,0 +1,40 @@
+{
+  "brand": {
+    "name": "Clark Today",
+    "shortName": "Clark",
+    "description": "Your daily dose of local news and information",
+    "logo": {
+      "light": "https://cdn.clark.today/logos/logo-black.png",
+      "dark": "https://cdn.clark.today/logos/logo-white.png"
+    }
+  },
+  "links": [
+    {
+      "text": "Visit Clark Today",
+      "url": "https://www.clark.today/"
+    },
+    {
+      "text": "Subscribe to Newsletter",
+      "url": "https://www.clark.today/newsletter"
+    },
+    {
+      "text": "Contact Us",
+      "url": "https://www.clark.today/contact"
+    }
+  ],
+  "features": {
+    "themeToggle": true,
+    "hideButton": true,
+    "hideTimeout": 60000
+  },
+  "styling": {
+    "position": {
+      "bottom": "20px",
+      "right": "20px"
+    },
+    "colors": {
+      "primary": "#2563eb",
+      "accent": "#60a5fa"
+    }
+  }
+}
