@@ -1,6 +1,6 @@
 # Clark Today Attribution Button
 
-Generated on: `2025-06-24T05:16:56.717Z`
+Generated on: `2025-06-24T05:25:40.811Z`
 Version: `1.0.0`
 
 ## Quick Start

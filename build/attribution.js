@@ -1,5 +1,5 @@
 /* 
- * Attribution Button - Generated 2025-06-24T05:16:56.717Z
+ * Attribution Button - Generated 2025-06-24T05:25:40.811Z
  * Config: config.json
  * Version: 1.0.0
  */
@@ -19,7 +19,7 @@
         
         <button id="clark-att-button" class="clark-att-btn" type="button" style="position:relative;overflow:hidden">
             <img id="clark-button-logo" alt="${config.brand.name} Logo" loading="lazy" decoding="async" style="color:transparent" src="${config.brand.logo.light}" width="22" height="22">
-            ${config.brand.shortName}<span class="clark-big-only"> ${config.brand.name}</span>
+            <span class="clark-small-only">${config.brand.shortName}</span><span class="clark-big-only">${config.brand.name}</span>
         </button>
         
         <div class="clark-bg-animated hidden" id="clark-bg-animated">
@@ -332,9 +332,15 @@
             #clark-attribution-wrapper .clark-big-only {
                 display: none;
             }
+            #clark-attribution-wrapper .clark-small-only {
+                display: inline-block;
+            }
             @media (min-width: 768px) {
                 #clark-attribution-wrapper .clark-big-only {
                     display: inline-block;
+                }
+                #clark-attribution-wrapper .clark-small-only {
+                    display: none;
                 }
             }
             @keyframes clark-move {
