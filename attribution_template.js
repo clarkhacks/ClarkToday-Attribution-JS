@@ -11,7 +11,7 @@
             ${getStyles()}
         </style>
         
-        <button id="clark-att-button" class="clark-att-btn" type="button" style="position:relative;overflow:hidden">
+        <button id="clark-att-button" class="clark-att-btn" type="button" style="position:relative;overflow:hidden;z-index:999;">
             <img id="clark-button-logo" alt="${config.brand.name} Logo" loading="lazy" decoding="async" style="color:transparent" src="${config.brand.logo.light}" width="22" height="22">
             <span class="clark-small-only">${config.brand.shortName}</span><span class="clark-big-only">${config.brand.name}</span>
         </button>
