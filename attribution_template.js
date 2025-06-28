@@ -3,6 +3,11 @@
     // Configuration will be injected here by GitHub Actions
     const config = {{CONFIG_PLACEHOLDER}};
     
+    // Check for user-defined attConfig array and merge additional buttons
+    if (typeof window !== 'undefined' && window.attConfig && Array.isArray(window.attConfig)) {
+        config.links = [...config.links, ...window.attConfig];
+    }
+    
     // Create the attribution wrapper
     const wrapper = document.createElement('div');
     wrapper.id = 'clark-attribution-wrapper';

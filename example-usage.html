@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attribution Button - Additional Buttons Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 2rem;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .example-section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+        code {
+            background: #e8e8e8;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+        pre {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+        }
+        .highlight {
+            background: #fff3cd;
+            padding: 1rem;
+            border-left: 4px solid #ffc107;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🚀 Attribution Button with Additional Buttons</h1>
+    
+    <div class="highlight">
+        <strong>Live Example:</strong> Click the attribution button in the bottom-right corner to see the additional buttons in action!
+    </div>
+
+    <div class="example-section">
+        <h2>📋 How to Add Additional Buttons</h2>
+        <p>Simply define a <code>const attConfig = []</code> array before loading the attribution script. Each button should have <code>text</code> and <code>url</code> properties:</p>
+        
+        <pre><code>&lt;script&gt;
+// Define additional buttons
+const attConfig = [
+    {
+        text: "GitHub Profile",
+        url: "https://github.com/username"
+    },
+    {
+        text: "LinkedIn",
+        url: "https://linkedin.com/in/username"
+    },
+    {
+        text: "Portfolio",
+        url: "https://portfolio.example.com"
+    }
+];
+&lt;/script&gt;
+
+&lt;!-- Load the attribution script --&gt;
+&lt;script src="build/attribution.min.js"&gt;&lt;/script&gt;</code></pre>
+    </div>
+
+    <div class="example-section">
+        <h2>✨ What You Get</h2>
+        <p>The attribution button will show:</p>
+        <ul>
+            <li><strong>Default buttons</strong> from the main configuration (Visit Clark Today, Read My Blog, Contact Me)</li>
+            <li><strong>Your additional buttons</strong> appended to the list</li>
+            <li>All buttons styled consistently with hover effects</li>
+            <li>Responsive design that works on all devices</li>
+        </ul>
+    </div>
+
+    <div class="example-section">
+        <h2>🎯 Simple Example</h2>
+        <p>Add just one extra button:</p>
+        <pre><code>&lt;script&gt;
+const attConfig = [
+    {
+        text: "My Custom Link",
+        url: "https://example.com"
+    }
+];
+&lt;/script&gt;
+&lt;script src="build/attribution.min.js"&gt;&lt;/script&gt;</code></pre>
+    </div>
+
+    <div class="example-section">
+        <h2>⚠️ Important Notes</h2>
+        <ul>
+            <li>Define <code>attConfig</code> <strong>before</strong> loading the attribution script</li>
+            <li>Each button object must have both <code>text</code> and <code>url</code> properties</li>
+            <li>URLs should include the protocol (http:// or https://)</li>
+            <li>Additional buttons appear after the default buttons</li>
+            <li>All links open in a new tab/window</li>
+        </ul>
+    </div>
+
+    <!-- Example implementation with additional buttons -->
+    <script>
+        // Define additional buttons for this demo
+        const attConfig = [
+            {
+                text: "GitHub Profile",
+                url: "https://github.com/clarkweckmann"
+            },
+            {
+                text: "LinkedIn",
+                url: "https://linkedin.com/in/clarkweckmann"
+            },
+            {
+                text: "Demo Portfolio",
+                url: "https://portfolio.example.com"
+            }
+        ];
+    </script>
+
+    <!-- Load the attribution script (this would normally point to your built file) -->
+    <script src="build/attribution.min.js"></script>
+</body>
+</html>

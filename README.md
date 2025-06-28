@@ -213,6 +213,51 @@ attribution-button/
 <script src="attribution.min.js"></script>
 ```
 
+### Adding Additional Buttons
+
+You can add extra buttons to the attribution modal by defining an `attConfig` array before loading the script:
+
+```html
+<script>
+// Define additional buttons
+const attConfig = [
+    {
+        text: "GitHub Profile",
+        url: "https://github.com/username"
+    },
+    {
+        text: "LinkedIn",
+        url: "https://linkedin.com/in/username"
+    },
+    {
+        text: "Portfolio",
+        url: "https://portfolio.example.com"
+    }
+];
+</script>
+<script src="attribution.min.js"></script>
+```
+
+**Important Notes:**
+- Define `attConfig` **before** loading the attribution script
+- Each button object must have both `text` and `url` properties
+- Additional buttons appear after the default buttons from your configuration
+- All links open in a new tab/window
+
+### Simple One-Off Button
+
+```html
+<script>
+const attConfig = [
+    {
+        text: "My Custom Link",
+        url: "https://example.com"
+    }
+];
+</script>
+<script src="attribution.min.js"></script>
+```
+
 ### Conditional Loading
 
 ```html

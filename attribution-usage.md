@@ -1,6 +1,6 @@
 # Clark Today Attribution Button
 
-Generated on: `2025-06-24T05:25:40.811Z`
+Generated on: `2025-06-28T02:23:33.582Z`
 Version: `1.0.0`
 
 ## Quick Start
@@ -17,8 +17,8 @@ Add this script tag to your HTML:
 {
   "brand": {
     "name": "Clark Today",
-    "shortName": "Clark",
-    "description": "Hi, I'm Clark Weckmann, a DevOps Engineer from Southern Illinois. I specialize in web development and automation, with a focus on creating interesting projects and sharing my knowledge.",
+    "shortName": "Hey 👋",
+    "description": "Hi, I'm Clark Weckmann, a DevOps Engineer from Southern Illinois. I specialize in web development and automation.",
     "logo": {
       "light": "https://cdn.clark.today/logos/logo-black.png",
       "dark": "https://cdn.clark.today/logos/logo-white.png"

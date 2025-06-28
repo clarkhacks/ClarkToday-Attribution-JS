@@ -1,5 +1,5 @@
 /* 
- * Attribution Button - Generated 2025-06-24T05:25:40.811Z
+ * Attribution Button - Generated 2025-06-28T02:23:33.582Z
  * Config: config.json
  * Version: 1.0.0
  */
@@ -7,7 +7,12 @@
 // Attribution Button Template - Will be processed by GitHub Actions
 (function() {
     // Configuration will be injected here by GitHub Actions
-    const config = {"brand":{"name":"Clark Today","shortName":"Clark","description":"Hi, I'm Clark Weckmann, a DevOps Engineer from Southern Illinois. I specialize in web development and automation, with a focus on creating interesting projects and sharing my knowledge.","logo":{"light":"https://cdn.clark.today/logos/logo-black.png","dark":"https://cdn.clark.today/logos/logo-white.png"}},"links":[{"text":"Visit Clark Today","url":"https://www.clark.today/"},{"text":"Read My Blog","url":"https://www.clark.today/blog"},{"text":"Contact Me","url":"https://www.clark.today/card"}],"features":{"themeToggle":true,"hideButton":true,"hideTimeout":60000},"styling":{"position":{"bottom":"20px","right":"20px"},"colors":{"primary":"#2563eb","accent":"#60a5fa"}}};
+    const config = {"brand":{"name":"Clark Today","shortName":"Hey 👋","description":"Hi, I'm Clark Weckmann, a DevOps Engineer from Southern Illinois. I specialize in web development and automation.","logo":{"light":"https://cdn.clark.today/logos/logo-black.png","dark":"https://cdn.clark.today/logos/logo-white.png"}},"links":[{"text":"Visit Clark Today","url":"https://www.clark.today/"},{"text":"Read My Blog","url":"https://www.clark.today/blog"},{"text":"Contact Me","url":"https://www.clark.today/card"}],"features":{"themeToggle":true,"hideButton":true,"hideTimeout":60000},"styling":{"position":{"bottom":"20px","right":"20px"},"colors":{"primary":"#2563eb","accent":"#60a5fa"}}};
+    
+    // Check for user-defined attConfig array and merge additional buttons
+    if (typeof window !== 'undefined' && window.attConfig && Array.isArray(window.attConfig)) {
+        config.links = [...config.links, ...window.attConfig];
+    }
     
     // Create the attribution wrapper
     const wrapper = document.createElement('div');
@@ -17,7 +22,7 @@
             ${getStyles()}
         </style>
         
-        <button id="clark-att-button" class="clark-att-btn" type="button" style="position:relative;overflow:hidden">
+        <button id="clark-att-button" class="clark-att-btn" type="button" style="position:relative;overflow:hidden;z-index:999;">
             <img id="clark-button-logo" alt="${config.brand.name} Logo" loading="lazy" decoding="async" style="color:transparent" src="${config.brand.logo.light}" width="22" height="22">
             <span class="clark-small-only">${config.brand.shortName}</span><span class="clark-big-only">${config.brand.name}</span>
         </button>
